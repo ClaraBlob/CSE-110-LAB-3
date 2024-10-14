@@ -124,7 +124,7 @@ const createNoteHandler = (event: React.FormEvent) => {
           background: currentTheme.background,
           color: currentTheme.foreground,
           borderColor: currentTheme.foreground,
-        }} onChange={(event) =>
+        }} placeholder="Note Content" onChange={(event) =>
             setCreateNote({ ...createNote, content: event.target.value })}
         	  required>
       </textarea></div>
@@ -147,7 +147,7 @@ const createNoteHandler = (event: React.FormEvent) => {
       {/*style theme for toggling*/}
        <div><button 
         type="submit" onClick={createNoteHandler}>
-          Create
+          Create Note
         </button></div>
         
 {/*style theme for toggling*/}
