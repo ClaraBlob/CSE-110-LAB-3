@@ -151,7 +151,7 @@ const createNoteHandler = (event: React.FormEvent) => {
         </button></div>
         
 {/*style theme for toggling*/}
-</form>
+</form >
      <div 
      style={{
           background: currentTheme.background,
@@ -190,7 +190,7 @@ const createNoteHandler = (event: React.FormEvent) => {
             }} onClick={()=>deleteNote(note)}>x </button>
     </div>
     {/*style theme for toggling*/}
-        <h2 style={{
+        <h2 data-testid style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
         }}  contentEditable={note === selectedNote}> {note.title} </h2>
