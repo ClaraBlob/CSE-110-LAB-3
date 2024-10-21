@@ -51,33 +51,18 @@ describe("Read Notes", () => {
 
 
    //const elements = screen.getAllByClassName('my-class');
-
   dummyNotes.forEach(note=> {
     expect(screen.getByText(note.title)).toBeInTheDocument();
     expect(screen.getByText(note.content)).toBeInTheDocument();
+    expect(screen.getAllByText(note.label)[0]).toBeInTheDocument();
   });
-  const title = screen.getAllByRole('heading', { name: 'title' });
-  expect(title).toHaveLength(dummyNotes.length);
+  const titles = screen.getAllByRole('heading', { name: 'title' });
+  const contents = screen.getAllByTestId('content');
+  const labels = screen.getAllByTestId('label');
+  expect(titles).toHaveLength(dummyNotes.length);
+  expect(contents).toHaveLength(dummyNotes.length);
+  expect(labels).toHaveLength(dummyNotes.length);
  });
- /* test("read created note", () => {
-   const dummyNotes = dummyNotesList;
-   render(<StickyNotes/>);
-
-   const { container } = render(<StickyNotes />)
-
-  expect(container.getElementsByClassName('note-item').length).toBe(6);
-
-
-
-   //const elements = screen.getAllByClassName('my-class');
-
-  dummyNotes.forEach(note=> {
-    expect(screen.queryAllByText(note.title)).toBeInTheDocument();
-    expect(screen.queryAllByText(note.content)).toBeInTheDocument();
-    expect(screen.queryAllByText(note.label)).toBeInTheDocument();
-  });
- });*/
-
 });
 
 describe("Change Theme", () => {
