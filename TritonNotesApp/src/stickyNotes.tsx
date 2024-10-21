@@ -183,26 +183,26 @@ const createNoteHandler = (event: React.FormEvent) => {
             />
 
             {/*style theme for toggling*/}
-          <button 
+          <button aria-label="delete-button"
             style={{
               background: currentTheme.background,
               color: currentTheme.foreground,
             }} onClick={()=>deleteNote(note)}>x </button>
     </div>
     {/*style theme for toggling*/}
-        <h2 data-testid style={{
+        <h2 aria-label="title"  style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
-        }}  contentEditable={note === selectedNote}> {note.title} </h2>
+        }}  contentEditable={note === selectedNote}> {note.title} </h2> 
         
         {/*style theme for toggling*/}
-        <p style={{
+        <p aria-label="content" style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
           }} contentEditable={note === selectedNote}> {note.content} </p>
         
         {/*style theme for toggling*/}
-        <p style={{
+        <p aria-label="label" style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
           }} contentEditable={note === selectedNote}>{note.label} </p>

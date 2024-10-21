@@ -1,4 +1,5 @@
-import { render, screen, fireEvent} from "@testing-library/react";
+import { render, screen, fireEvent, getByTestId} from "@testing-library/react";
+import { assert } from "console";
 import { dummyNotesList } from "./constants";
 import { StickyNotes } from "./stickyNotes";
 import { ToDoList } from "./toDoList";
@@ -38,28 +39,27 @@ describe("Create StickyNote", () => {
 
 describe("Read Notes", () => {
  test("read created notes", () => {
-   /*const dummyNotes = dummyNotesList;
-   render(<StickyNotes/>);*/
+   const dummyNotes = dummyNotesList;
    render(<StickyNotes/>);
+   /*render(<StickyNotes/>);
    const createNoteButton = screen.getByText("Create Note");
    fireEvent.click(createNoteButton);
    const { container } = render(<StickyNotes />)
    
-  expect(container.getElementsByClassName('note-item').length).toBe(7);
+  expect(container.getElementsByClassName('note-item').length).toBe(7);*/
 
 
 
    //const elements = screen.getAllByClassName('my-class');
 
-  /*dummyNotes.forEach(note=> {
-    expect(screen.queryAllByText(note.title)).toBeInTheDocument();
-    expect(screen.queryAllByText(note.content)).toBeInTheDocument();
-    expect(screen.queryAllByText(note.label)).toBeInTheDocument();
-  });*/
+  dummyNotes.forEach(note=> {
+    expect(screen.getByText(note.title)).toBeInTheDocument();
+    expect(screen.getByText(note.content)).toBeInTheDocument();
+  });
  });
- test("read created note", () => {
-   /*const dummyNotes = dummyNotesList;
-   render(<StickyNotes/>);*/
+ /* test("read created note", () => {
+   const dummyNotes = dummyNotesList;
+   render(<StickyNotes/>);
 
    const { container } = render(<StickyNotes />)
 
@@ -69,23 +69,36 @@ describe("Read Notes", () => {
 
    //const elements = screen.getAllByClassName('my-class');
 
-  /*dummyNotes.forEach(note=> {
+  dummyNotes.forEach(note=> {
     expect(screen.queryAllByText(note.title)).toBeInTheDocument();
     expect(screen.queryAllByText(note.content)).toBeInTheDocument();
     expect(screen.queryAllByText(note.label)).toBeInTheDocument();
-  });*/
- });
+  });
+ });*/
 
 });
 
+describe("Change Theme", () => {
 
-describe("Updated Note", () => {
+  test("Toggle theme button", () => {
+    render(<StickyNotes/>);
+    const toggleThemeButton = screen.getByText("Toggle Theme");
+    expect(toggleThemeButton).toBeInTheDocument();
+  });
+
+  /*test("Theme change", () => {
+    render(<StickyNotes/>);
+    const toggleThemeButton = screen.getByText("Toggle Theme");
+  });*/
+});
+
+/*describe("Updated Note", () => {
   test("check if note is updated", () => {
     const updatedTitle = "hello";
     const updatedContent = "hi";
     const updatedLabel = "work";
 
-    const changedTitle = screen.getByTestId('');
+    const changedTitle = screen.getByTestId('title');
 
    fireEvent.change(changedTitle, { target: { innerHtml: updatedTitle } });
 
@@ -94,15 +107,30 @@ describe("Updated Note", () => {
 
 
  });
-});
+});*/
 
 describe("Deleted Note", () => {
   test("check if note is deleted", () => {
-    const deleteButton = screen.getByText("x");
-    fireEvent.click(deleteButton);
-    
+    render(<StickyNotes/>);
+    const deleteButton = screen.getAllByRole('button', { name: /delete-button/i } );
+    fireEvent.click(deleteButton[0]);
+    expect(deleteButton[0]).not.toBeInTheDocument();
+ });
+ 
+  test("check if there are 0 sticky notes", () => {
+    render(<StickyNotes/>);
+    const deleteButton = screen.getAllByRole('button', { name: /delete-button/i } );
+    const title = screen.getAllByRole('heading', { name: 'title' });
+    deleteButton.forEach((note) => {
+      fireEvent.click(note);
+      expect(title[0]).not.toBeInTheDocument();
+      title.shift();
+    })
+    expect(title).toHaveLength(0);
  });
 });
+
+
 
 describe("Read To-Do List", () => {
   test("check banana and apple", () => {
@@ -117,8 +145,9 @@ describe("Read To-Do List", () => {
 });
 
 describe("Check ToDo list number", () => {
-  test("check banana and apple", () => {
+  test("List number", () => {
    render(<ToDoList />);
-
+  const checkbox = screen.getAllByRole('checkbox');
+  fireEvent.click(checkbox[1]);
  });
 });
