@@ -1,6 +1,9 @@
 import { render, screen, fireEvent, getByTestId} from "@testing-library/react";
 import { assert } from "console";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
+import App from "./App";
 import { dummyNotesList } from "./constants";
+import { Navbar } from "./navbar";
 import { StickyNotes } from "./stickyNotes";
 import { ToDoList } from "./toDoList";
 
@@ -175,7 +178,7 @@ describe("Read To-Do List", () => {
 
 describe("Check ToDo list number", () => {
   test("List number", () => {
-   render(<ToDoList />);
+  render(<ToDoList />);
   const zero = "0";
   const one = "1";
   const two = "2";
@@ -210,4 +213,31 @@ describe("Check ToDo list number", () => {
   expect(checkbox[1]).toBeChecked();
   expect(screen.getByText(one)).toBeInTheDocument();
  });
+});
+
+
+describe("Check ToDo list title link", () => {
+  test("ABC title link", () => {
+    render(<MemoryRouter>
+         <App />
+       </MemoryRouter>);
+    const ABC_link = screen.getByText('ABC To Do List');
+    const ABC_title = "ABC's To Do List";
+
+    expect(ABC_link).toBeInTheDocument();
+    fireEvent.click(ABC_link);
+    expect(screen.getByText(ABC_title)).toBeInTheDocument();
+  });
+  
+  test("DEF title link", () => {
+    render(<MemoryRouter>
+         <App />
+       </MemoryRouter>);
+    const DEF_link = screen.getByText('DEF To Do List');
+    const DEF_title = "DEF's To Do List";
+
+    expect(DEF_link).toBeInTheDocument();
+    fireEvent.click(DEF_link);
+    expect(screen.getByText(DEF_title)).toBeInTheDocument();
+  });
 });
