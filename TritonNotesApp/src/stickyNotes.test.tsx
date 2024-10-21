@@ -95,19 +95,61 @@ describe("Change Theme", () => {
 });
 
 describe("Updated Note", () => {
-  test("check if note is updated", () => {
+  test("check if note title is updated", () => {
     render(<StickyNotes/>);
     const updatedTitle = "hello";
-    const updatedContent = "hi";
-    const updatedLabel = "work";
+    
 
     const changedTitle = screen.getAllByRole('heading', { name: 'title' });
+    const editButton = screen.getAllByRole('button', {name : 'edit-button' });
 
-   fireEvent.change(changedTitle[0], { target: { innerHtml: updatedTitle } });
-   expect(changedTitle[0]).toBeInTheDocument();
-   fireEvent.blur(changedTitle[0]);
+    expect(editButton[0]).toBeInTheDocument();
+    expect(changedTitle[0]).toBeInTheDocument();
+
+    fireEvent.click(editButton[0]);
+    fireEvent.click(changedTitle[0]);
+
+
+   fireEvent.blur(changedTitle[0], { target: { textContent: updatedTitle } });
+
    expect(screen.getByText(updatedTitle)).toBeInTheDocument();
-   //expect(changedTitle[0].innerHTML).toBe(updatedTitle);
+   expect(changedTitle[0].textContent).toBe(updatedTitle);
+
+ });
+ test ("check if note content is updated", () => {
+  render(<StickyNotes/>);
+  const updatedContent = "hi";
+
+  const changedContent = screen.getAllByTestId('content');
+  const editButton = screen.getAllByRole('button', {name : 'edit-button' });
+
+  expect(editButton[0]).toBeInTheDocument();
+  expect(changedContent[0]).toBeInTheDocument();
+
+  fireEvent.click(editButton[0]);
+  fireEvent.click(changedContent[0]);
+  fireEvent.blur(changedContent[0], { target: { textContent: updatedContent } });
+
+  expect(screen.getByText(updatedContent)).toBeInTheDocument();
+  expect(changedContent[0].textContent).toBe(updatedContent);
+ });
+
+  test ("check if note label is updated", () => {
+  render(<StickyNotes/>);
+  const updatedLabel = "work";
+
+  const changedLabel = screen.getAllByTestId('label');
+  const editButton = screen.getAllByRole('button', {name : 'edit-button' });
+
+  expect(editButton[0]).toBeInTheDocument();
+  expect(changedLabel[0]).toBeInTheDocument();
+
+  fireEvent.click(editButton[0]);
+  fireEvent.click(changedLabel[0]);
+  fireEvent.blur(changedLabel[0], { target: { textContent: updatedLabel } });
+
+  expect(screen.getAllByText(updatedLabel)[0]).toBeInTheDocument();
+  expect(changedLabel[0].textContent).toBe(updatedLabel);
  });
 });
 

@@ -167,7 +167,7 @@ const createNoteHandler = (event: React.FormEvent) => {
            className="note-item">
            <div className="notes-header">
              {/*stores new values*/}
-            <button
+            <button aria-label="edit-button" 
               onClick={() => setSelectedNote(note)}
                 style={{
                   background: currentTheme.background,
@@ -196,13 +196,13 @@ const createNoteHandler = (event: React.FormEvent) => {
         }}  contentEditable={note === selectedNote}> {note.title} </h2> 
         
         {/*style theme for toggling*/}
-        <p aria-label="content" style={{
+        <p data-testid="content" style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
           }} contentEditable={note === selectedNote}> {note.content} </p>
         
         {/*style theme for toggling*/}
-        <p aria-label="label" style={{
+        <p data-testid="label" style={{
           background: currentTheme.background,
           color: currentTheme.foreground,
           }} contentEditable={note === selectedNote}>{note.label} </p>
