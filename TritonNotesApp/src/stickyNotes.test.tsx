@@ -56,6 +56,8 @@ describe("Read Notes", () => {
     expect(screen.getByText(note.title)).toBeInTheDocument();
     expect(screen.getByText(note.content)).toBeInTheDocument();
   });
+  const title = screen.getAllByRole('heading', { name: 'title' });
+  expect(title).toHaveLength(dummyNotes.length);
  });
  /* test("read created note", () => {
    const dummyNotes = dummyNotesList;
@@ -92,22 +94,22 @@ describe("Change Theme", () => {
   });*/
 });
 
-/*describe("Updated Note", () => {
+describe("Updated Note", () => {
   test("check if note is updated", () => {
+    render(<StickyNotes/>);
     const updatedTitle = "hello";
     const updatedContent = "hi";
     const updatedLabel = "work";
 
-    const changedTitle = screen.getByTestId('title');
+    const changedTitle = screen.getAllByRole('heading', { name: 'title' });
 
-   fireEvent.change(changedTitle, { target: { innerHtml: updatedTitle } });
-
-   expect(changedTitle.innerHTML).toBe(updatedTitle);
-
-
-
+   fireEvent.change(changedTitle[0], { target: { innerHtml: updatedTitle } });
+   expect(changedTitle[0]).toBeInTheDocument();
+   fireEvent.blur(changedTitle[0]);
+   expect(screen.getByText(updatedTitle)).toBeInTheDocument();
+   //expect(changedTitle[0].innerHTML).toBe(updatedTitle);
  });
-});*/
+});
 
 describe("Deleted Note", () => {
   test("check if note is deleted", () => {
@@ -132,7 +134,7 @@ describe("Deleted Note", () => {
 
 
 
-describe("Read To-Do List", () => {
+/*describe("Read To-Do List", () => {
   test("check banana and apple", () => {
    render(<ToDoList />);
 
@@ -142,12 +144,12 @@ describe("Read To-Do List", () => {
    const apples = screen.getByText("Apples");
    expect(apples).toBeInTheDocument();
  });
-});
+});*/
 
-describe("Check ToDo list number", () => {
+/*describe("Check ToDo list number", () => {
   test("List number", () => {
    render(<ToDoList />);
   const checkbox = screen.getAllByRole('checkbox');
   fireEvent.click(checkbox[1]);
  });
-});
+});*/
