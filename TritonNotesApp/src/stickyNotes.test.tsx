@@ -161,7 +161,7 @@ describe("Deleted Note", () => {
 
 
 
-/*describe("Read To-Do List", () => {
+describe("Read To-Do List", () => {
   test("check banana and apple", () => {
    render(<ToDoList />);
 
@@ -171,12 +171,43 @@ describe("Deleted Note", () => {
    const apples = screen.getByText("Apples");
    expect(apples).toBeInTheDocument();
  });
-});*/
+});
 
-/*describe("Check ToDo list number", () => {
+describe("Check ToDo list number", () => {
   test("List number", () => {
    render(<ToDoList />);
-  const checkbox = screen.getAllByRole('checkbox');
-  fireEvent.click(checkbox[1]);
+  const zero = "0";
+  const one = "1";
+  const two = "2";
+  const checkbox = screen.getAllByRole('checkbox'); // Apples, Bananas
+
+  expect(checkbox[0]).not.toBeChecked();
+  expect(checkbox[1]).not.toBeChecked();
+  expect(screen.getByText(zero)).toBeInTheDocument();
+
+  fireEvent.click(checkbox[0]); // Bananas, Apples
+  expect(checkbox[0]).not.toBeChecked();
+  expect(checkbox[1]).toBeChecked();
+  expect(screen.getByText(one)).toBeInTheDocument();
+
+  fireEvent.click(checkbox[0]); // Bananas, Apples
+  expect(checkbox[0]).toBeChecked();
+  expect(checkbox[1]).toBeChecked();
+  expect(screen.getByText(two)).toBeInTheDocument();
+
+  fireEvent.click(checkbox[0]); // Bananas, Apples
+  expect(checkbox[0]).not.toBeChecked();
+  expect(checkbox[1]).toBeChecked();
+  expect(screen.getByText(one)).toBeInTheDocument();
+
+  fireEvent.click(checkbox[1]); // Bananas, Apples
+  expect(checkbox[0]).not.toBeChecked();
+  expect(checkbox[1]).not.toBeChecked();
+  expect(screen.getByText(zero)).toBeInTheDocument();
+
+  fireEvent.click(checkbox[0]); // Apples, Bananas
+  expect(checkbox[0]).not.toBeChecked();
+  expect(checkbox[1]).toBeChecked();
+  expect(screen.getByText(one)).toBeInTheDocument();
  });
-});*/
+});
