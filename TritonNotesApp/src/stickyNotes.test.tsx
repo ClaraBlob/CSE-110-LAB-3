@@ -44,16 +44,7 @@ describe("Read Notes", () => {
  test("read created notes", () => {
    const dummyNotes = dummyNotesList;
    render(<StickyNotes/>);
-   /*render(<StickyNotes/>);
-   const createNoteButton = screen.getByText("Create Note");
-   fireEvent.click(createNoteButton);
-   const { container } = render(<StickyNotes />)
-   
-  expect(container.getElementsByClassName('note-item').length).toBe(7);*/
-
-
-
-   //const elements = screen.getAllByClassName('my-class');
+ 
   dummyNotes.forEach(note=> {
     expect(screen.getByText(note.title)).toBeInTheDocument();
     expect(screen.getByText(note.content)).toBeInTheDocument();
@@ -69,17 +60,11 @@ describe("Read Notes", () => {
 });
 
 describe("Change Theme", () => {
-
   test("Toggle theme button", () => {
     render(<StickyNotes/>);
     const toggleThemeButton = screen.getByText("Toggle Theme");
     expect(toggleThemeButton).toBeInTheDocument();
   });
-
-  /*test("Theme change", () => {
-    render(<StickyNotes/>);
-    const toggleThemeButton = screen.getByText("Toggle Theme");
-  });*/
 });
 
 describe("Updated Note", () => {
@@ -162,8 +147,6 @@ describe("Deleted Note", () => {
  });
 });
 
-
-
 describe("Read To-Do List", () => {
   test("check banana and apple", () => {
    render(<ToDoList />);
@@ -215,7 +198,6 @@ describe("Check ToDo list number", () => {
  });
 });
 
-
 describe("Check ToDo list title link", () => {
   test("ABC title link", () => {
     render(<MemoryRouter>
@@ -228,7 +210,7 @@ describe("Check ToDo list title link", () => {
     fireEvent.click(ABC_link);
     expect(screen.getByText(ABC_title)).toBeInTheDocument();
   });
-  
+
   test("DEF title link", () => {
     render(<MemoryRouter>
          <App />
